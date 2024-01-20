@@ -1,0 +1,24 @@
+{% extends 'base_templates/base.html' %}
+
+{% block content %}
+    {% if sheet %}
+        <h1>{{ sheet.name }}</h1>
+        <form id="update" method="GET" action="{% url 'update_sheet' pk=sheet.id %}">
+            {% csrf_token %}
+            <button>Update</button>
+        </form>
+        <form id="delete" method="DELETE" action="{% url 'delete_sheet' pk=sheet.id %}">
+            <button>Delete</button>
+        </form>
+        <p><strong>Criado por</strong>: {{ sheet.creator }}</p>
+        {% if sheet.exercises.count >= 1 %}
+            <h2>Exercícios</h2>
+                {% for exercise in sheet.exercises.all %}
+                    <ul>
+                        <li><strong>{{ exercise.name }}</strong></li>
+                        <li>{{ exercise.description}}</li>
+                    </ul>
+                {% endfor %}
+        {% endif %}
+    {% endif %}
+{% endblock %}

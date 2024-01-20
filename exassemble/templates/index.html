@@ -1,0 +1,37 @@
+{% extends 'base_templates/base.html' %}
+
+{% block sidebar %}
+    {% if username %}
+        <ul class="sidebar-nav">
+            <li><p>Bem-vindo, {{ username|capfirst }}!</p></li>
+            <li><form method='POST' action="{% url 'cstm_logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form></li>
+            <li><a href="{% url 'add_sheet' %}">Add Sheet</a></li>
+            <li><a href="{% url 'exercises' %}">Exercises</a></li>
+        </ul>
+    {% else %}
+        <ul class="sidebar-nav">
+            <li><p>Bem-vindo!</p></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'add_sheet' %}">Add Sheet</a></li>
+            <li><a href="{% url 'exercises' %}">Exercises</a></li>
+        </ul>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if sheets %}
+        <h1>Planilhas</h1>
+        <ul>
+        {% for sheet in sheets %}
+            <li><a href="{{ sheet.get_absolute_url }}">{{ sheet.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <h2>Não é possível visualizar as planilhas sem uma conta!</h2>
+        <p><a href="{% url 'exercises' %}">Ir para a página dos exercícios</a></p>
+    {% endif %}
+{% endblock %}

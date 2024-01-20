@@ -1,0 +1,17 @@
+{% extends 'base_templates/base.html' %}
+
+{% block content %}
+    {% if model == 'exercise' %}
+        <form action="{% url 'update_exercise' pk=id %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    {% elif model == 'sheet' %}
+        <form action="{% url 'update_sheet' pk=id %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit">
+        </form>
+    {% endif %}
+{% endblock %}

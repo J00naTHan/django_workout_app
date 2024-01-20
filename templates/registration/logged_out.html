@@ -1,0 +1,9 @@
+{% extends "base_templates/base.html" %}
+
+{% block content %}
+  <form id="logout-form" method="post" action="{% url 'cstm_logout' %}">
+    {% csrf_token %}
+    <button type="submit">Log out</button>
+  </form>
+
+{% endblock %}

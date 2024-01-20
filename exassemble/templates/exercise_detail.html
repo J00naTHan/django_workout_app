@@ -1,0 +1,18 @@
+{% extends 'base_templates/exercise_base.html' %}
+
+{% block content %}
+    {% if exercise %}
+        <h1>{{ exercise.name }}</h1>
+        <form id="update" method="GET" action="{% url 'update_exercise' pk=exercise.id %}">
+            {% csrf_token %}
+            <button>Update</button>
+        </form>
+        <form id="delete" method="DELETE" action="{% url 'delete_exercise' pk=exercise.id %}">
+            <button>Delete</button>
+        </form>
+        <p><strong>Criado por</strong>: {{ exercise.creator }}</p>
+        <p><strong>Descrição</strong>: {{ exercise.description }}</p>
+    {% else %}
+        <h2>Não há exercício cadastrado para o id fornecido</h2>
+    {% endif %}
+{% endblock %}
